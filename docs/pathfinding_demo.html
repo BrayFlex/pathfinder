@@ -1,0 +1,145 @@
+<!-- Demo page for Pathfinder pathfinding algorithms -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder: Pathfinding Algorithms Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styles specific to the pathfinding demo layout */
+        /* Basic layout for side-by-side scenarios */
+        .scenario-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 20px; /* Add some space between scenarios */
+            margin-top: 20px;
+        }
+        .scenario {
+            border: 1px solid #ccc;
+            padding: 15px;
+            min-width: 360px; /* Ensure scenarios have some minimum width */
+            flex: 1; /* Allow scenarios to grow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        canvas {
+            border: 1px solid black;
+            margin-bottom: 10px;
+            /* Define initial canvas size, can be adjusted */
+            width: 360px;
+            height: 360px;
+        }
+        .controls, .results {
+            margin-top: 10px;
+            width: 100%; /* Make controls/results take full width of scenario box */
+        }
+        .results pre {
+             background-color: #f4f4f4;
+             padding: 5px;
+             border: 1px solid #ddd;
+             font-size: 0.9em;
+             white-space: pre-wrap; /* Wrap long lines */
+             word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pathfinder: Pathfinding Algorithms Demo</h1>
+    <div style="text-align: center; margin-bottom: 15px;">
+        <a href="https://github.com/brayflex/pathfinder" target="_blank">Project GitHub</a> |
+        <a href="steering_demo.html">Steering Behaviors Demo</a>
+    </div>
+    <!-- Container for all pathfinding scenarios -->
+    <div class="scenario-container" id="pathfinding-scenario-container">
+        <!-- Scenario 1: Simple Grid -->
+        <div class="scenario" id="simple-scenario">
+            <h2>Simple Scenario</h2>
+            <canvas id="simpleCanvas" width="360" height="360"></canvas>
+            <div class="results" id="simple-results">
+                <pre>Results will appear here...</pre>
+            </div>
+            <div class="controls">
+                <label for="simple-algo-select">Algorithm:</label>
+                <select id="simple-algo-select">
+                    <option value="AStarFinder">A* Finder</option>
+                    <option value="BreadthFirstFinder">Breadth-First Finder</option>
+                    <option value="DijkstraFinder">Dijkstra Finder</option>
+                    <option value="JumpPointFinder">Jump Point Finder (JPS)</option>
+                    <option value="IDAStarFinder">IDA* Finder</option>
+                    <option value="OrthogonalJumpPointFinder">Orthogonal JPS</option>
+                    <option value="BiBreadthFirstFinder">Bi-Directional BFS</option>
+                    <option value="BiDijkstraFinder">Bi-Directional Dijkstra</option>
+                    <option value="BestFirstFinder">Best-First Finder</option>
+                    <option value="BiAStarFinder">Bi-Directional A*</option>
+                    <option value="BiBestFirstFinder">Bi-Directional Best-First</option>
+                </select>
+                <div id="simple-previous-algo" style="font-size: 0.8em; margin-bottom: 5px; min-height: 22px;"></div>
+            </div>
+        </div>
+
+        <!-- End Simple Scenario -->
+
+        <!-- Scenario 2: Maze Grid -->
+        <div class="scenario" id="maze-scenario">
+            <h2>Maze Scenario</h2>
+            <canvas id="mazeCanvas" width="360" height="360"></canvas>
+            <div class="results" id="maze-results">
+                <pre>Results will appear here...</pre>
+            </div>
+            <div class="controls">
+                <label for="maze-algo-select">Algorithm:</label>
+                <select id="maze-algo-select">
+                    <option value="AStarFinder">A* Finder</option>
+                    <option value="BreadthFirstFinder">Breadth-First Finder</option>
+                    <option value="DijkstraFinder">Dijkstra Finder</option>
+                    <option value="JumpPointFinder">Jump Point Finder (JPS)</option>
+                    <option value="IDAStarFinder">IDA* Finder</option>
+                    <option value="OrthogonalJumpPointFinder">Orthogonal JPS</option>
+                    <option value="BiBreadthFirstFinder">Bi-Directional BFS</option>
+                    <option value="BiDijkstraFinder">Bi-Directional Dijkstra</option>
+                    <option value="BestFirstFinder">Best-First Finder</option>
+                    <option value="BiAStarFinder">Bi-Directional A*</option>
+                    <option value="BiBestFirstFinder">Bi-Directional Best-First</option>
+                </select>
+                 <div id="maze-previous-algo" style="font-size: 0.8em; margin-bottom: 5px; min-height: 22px;"></div>
+                 <button id="reload-maze-scenario">New Maze Scenario</button>
+           </div>
+        </div>
+<!-- End Maze Scenario -->
+
+<!-- Scenario 3: Random Grid -->
+<div class="scenario" id="random-scenario">
+        <div class="scenario" id="random-scenario">
+            <h2>Random Scenario</h2>
+            <canvas id="randomCanvas" width="360" height="360"></canvas>
+            <div class="results" id="random-results">
+                <pre>Results will appear here...</pre>
+            </div>
+            <div class="controls">
+                <label for="random-algo-select">Algorithm:</label>
+                <select id="random-algo-select">
+                    <option value="AStarFinder">A* Finder</option>
+                    <option value="BreadthFirstFinder">Breadth-First Finder</option>
+                    <option value="DijkstraFinder">Dijkstra Finder</option>
+                    <option value="JumpPointFinder">Jump Point Finder (JPS)</option>
+                    <option value="IDAStarFinder">IDA* Finder</option>
+                    <option value="OrthogonalJumpPointFinder">Orthogonal JPS</option>
+                    <option value="BiBreadthFirstFinder">Bi-Directional BFS</option>
+                    <option value="BiDijkstraFinder">Bi-Directional Dijkstra</option>
+                    <option value="BestFirstFinder">Best-First Finder</option>
+                    <option value="BiAStarFinder">Bi-Directional A*</option>
+                    <option value="BiBestFirstFinder">Bi-Directional Best-First</option>
+                </select>
+                 <div id="random-previous-algo" style="font-size: 0.8em; margin-bottom: 5px; min-height: 22px;"></div>
+                <button id="reload-random-scenario">New Random Scenario</button>
+            </div>
+        </div>
+        <!-- End Random Scenario -->
+    </div> <!-- End scenario-container -->
+
+    <script defer src="web/main.dart.js"></script>
+</body>
+</html>
