@@ -176,7 +176,6 @@ void main() {
 
        // Test far obstacle
        obstacles.add(obstacleFar);
-       final steeringFar = avoidanceBehavior.calculateSteering(agent);
        obstacles.clear();
 
        // Test close obstacle
@@ -216,7 +215,7 @@ void main() {
        expect(steering.y, lessThan(0)); // Steer away from y=5 -> steer negative Y
 
        // Verify magnitude is based on the closer obstacle's proximity
-       final proximityFactorClose = (detectionBoxLength - 20.0) / detectionBoxLength;
+      //  final proximityFactorClose = (detectionBoxLength - 20.0) / detectionBoxLength;
        // Rough estimate, actual force depends on normalization
        // expect(steering.length, closeTo(avoidanceForceMultiplier * proximityFactorClose, 50.0)); // Tolerance needed
      });

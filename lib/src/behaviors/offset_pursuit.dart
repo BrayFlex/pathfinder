@@ -3,7 +3,6 @@ import 'dart:math'; // For max()
 
 import '../agent.dart';
 import '../steering_behavior.dart';
-import '../utils/vector_utils.dart'; // Although not directly used, good practice
 import 'arrival.dart'; // For doc links (uses Arrival logic)
 import 'pursuit.dart'; // For doc links (uses prediction logic)
 

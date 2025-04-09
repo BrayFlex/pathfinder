@@ -75,7 +75,6 @@ void main() {
     late Cohesion cohesionBehavior;
     const maxSpeed = 10.0;
     const neighborhoodRadius = 50.0;
-    const neighborhoodRadiusSq = neighborhoodRadius * neighborhoodRadius;
 
     setUp(() {
       agent = MockCohesionAgent('A',

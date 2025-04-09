@@ -1,5 +1,4 @@
 import 'dart:collection'; // For HashMap
-import 'dart:math';
 import 'package:vector_math/vector_math_64.dart';
 
 import '../agent.dart';

@@ -1,10 +1,8 @@
-import 'dart:math';
 import 'package:vector_math/vector_math_64.dart';
 
 import '../agent.dart';
 import '../steering_behavior.dart';
 import '../utils/spatial_hash_grid.dart'; // Requires SpatialHashGrid for neighbor queries
-import '../utils/vector_utils.dart'; // Although not directly used, good practice
 
 /// {@template unaligned_collision_avoidance}
 /// **Unaligned Collision Avoidance** steering behavior: avoids moving agents.
@@ -79,9 +77,7 @@ class UnalignedCollisionAvoidance extends SteeringBehavior {
   final Vector2 _relativeVelocity = Vector2.zero();
   final Vector2 _separationAtClosest = Vector2.zero();
   final Vector2 _avoidanceDir = Vector2.zero();
-  final Vector2 _steeringForce = Vector2.zero(); // Re-added for clarity
-  final Vector2 _desiredVelocity = Vector2.zero();
-  final Vector2 _finalSteering = Vector2.zero();
+  final Vector2 _steeringForce = Vector2.zero(); // Re-added for clarity\
   final Vector2 _firstThreatRelativeVelocity = Vector2.zero(); // Store rel vel of first threat
   // --- End Optimization ---
 

@@ -257,8 +257,6 @@ void main() {
        evader.position = Vector2(25.0000001, 0.0);
        evader.velocity = Vector2(1.0, 0.0); // Give some velocity
 
-       final steering = evadeBehavior.calculateSteering(evader);
-
        // Initial desiredVelocity (agent.pos - futurePos) is now tiny but non-zero.
        // The _flee logic should execute the main path, not the fallback.
        // Desired = (25.0000001, 0) - (25,0) = (0.0000001, 0). Normalized = (1,0). Scaled = (10,0)

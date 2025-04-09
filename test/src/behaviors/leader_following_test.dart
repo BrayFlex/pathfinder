@@ -3,8 +3,6 @@ import 'package:vector_math/vector_math_64.dart';
 import 'package:pathfinder/src/agent.dart';
 import 'package:pathfinder/src/utils/spatial_hash_grid.dart';
 import 'package:pathfinder/src/behaviors/leader_following.dart';
-import 'package:pathfinder/src/behaviors/arrival.dart'; // Needed for internal logic check
-import 'package:pathfinder/src/behaviors/evade.dart';   // Needed for internal logic check
 import 'package:pathfinder/src/behaviors/separation.dart';// Needed for internal logic check
 import 'dart:math'; // For sqrt in helper
 

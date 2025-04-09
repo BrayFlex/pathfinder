@@ -2,7 +2,6 @@ import 'package:test/test.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'package:pathfinder/src/agent.dart';
 import 'package:pathfinder/src/behaviors/arrival.dart';
-import 'dart:math'; // For sqrt
 
 // --- Mocks & Helpers ---
 

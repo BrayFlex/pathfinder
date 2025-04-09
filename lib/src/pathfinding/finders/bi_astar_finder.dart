@@ -3,9 +3,6 @@ import 'package:collection/collection.dart'; // Added import
 import '../grid.dart';
 import '../node.dart';
 import '../pathfinder_base.dart';
-import '../grid.dart';
-import '../node.dart';
-import '../pathfinder_base.dart';
 import '../heuristics.dart';
 
 /// A pathfinder that implements the Bi-directional A* (A-star) algorithm.
