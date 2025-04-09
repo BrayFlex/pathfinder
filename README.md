@@ -58,8 +58,8 @@ Then run `flutter pub get` or `dart pub get`.
 
 Explore interactive demos showcasing various pathfinding algorithms and steering behaviors:
 
-**[View Demos on Github.io](https://brayflex.github.io/pathfinder/)** 
-**[Explore Demo Example Code](https://github.com/brayflex/pathfinder/tree/main/docs/web)** 
+- **[View Demos on Github.io](https://brayflex.github.io/pathfinder/)** 
+- **[Explore Demo Example Code](https://github.com/brayflex/pathfinder/tree/main/docs/web)** 
 
 ## 💡 Usage Examples
 
