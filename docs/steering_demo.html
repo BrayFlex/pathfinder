@@ -1,167 +1,179 @@
 <!-- Demo page for Pathfinder steering behaviors -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pathfinder: Steering Behaviors Demo</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <style>
-        /* Styles specific to the steering demo layout (canvas + controls sidebar) */
-        :root {
-            --controls-width: 300px;
-            --breakpoint-medium: 768px; /* Adjust breakpoint as needed */
+      /* Styles specific to the steering demo layout (canvas + controls sidebar) */
+      :root {
+        --controls-width: 300px;
+        --breakpoint-medium: 768px; /* Adjust breakpoint as needed */
+      }
+      body {
+        display: flex;
+        font-family: sans-serif;
+        margin: 0;
+        height: 100vh;
+        overflow: hidden; /* Prevent body scroll */
+      }
+      #mainContent {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+      #steeringCanvas {
+        border: 1px solid black;
+        background-color: #f0f0f0;
+        /* Dimensions will be set in Dart */
+      }
+      #controls {
+        width: var(--controls-width); /* Fixed width for the sidebar */
+        padding: 20px;
+        border-left: 1px solid #ccc;
+        background-color: #fafafa;
+        overflow-y: auto; /* Allow scrolling if controls exceed height */
+        height: 100vh; /* Make sidebar full height */
+        box-sizing: border-box; /* Include padding in width/height */
+        transition: transform 0.3s ease-in-out; /* Animation for overlay */
+        z-index: 1000; /* Ensure it's above canvas */
+      }
+      #parameterPanel label,
+      #parameterPanel input,
+      #parameterPanel select {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%; /* Make controls fill sidebar width */
+        box-sizing: border-box;
+      }
+      #parameterPanel input[type="range"] {
+        width: calc(100% - 50px); /* Adjust slider width */
+        display: inline-block;
+        vertical-align: middle;
+      }
+      #parameterPanel .value-display {
+        display: inline-block;
+        width: 40px; /* Space for value */
+        text-align: right;
+        vertical-align: middle;
+        margin-left: 5px;
+      }
+      #parameterPanel h3 {
+        margin-top: 0;
+      }
+      #resetButton {
+        margin-top: 20px;
+        padding: 8px 15px;
+      }
+      #behaviorSelector {
+        margin-bottom: 20px;
+      }
+
+      #paramsToggleButton {
+        display: none; /* Hidden by default */
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1001; /* Above controls */
+      }
+
+      /* Styles for smaller screens */
+      @media (max-width: var(--breakpoint-medium)) {
+        #controls {
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: var(--controls-width);
+          border-left: none; /* Remove border when overlay */
+          border-right: 1px solid #ccc; /* Add border on the left */
+          transform: translateX(100%); /* Hide off-screen */
+          box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
         }
-        body {
-            display: flex;
-            font-family: sans-serif;
-            margin: 0;
-            height: 100vh;
-            overflow: hidden; /* Prevent body scroll */
+        #controls.visible {
+          transform: translateX(0); /* Slide in */
+        }
+        #paramsToggleButton {
+          display: block; /* Show button */
         }
         #mainContent {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+          /* Ensure main content doesn't overlap button */
+          padding-bottom: 60px;
         }
-        #steeringCanvas {
-            border: 1px solid black;
-            background-color: #f0f0f0;
-            /* Dimensions will be set in Dart */
-        }
-        #controls {
-            width: var(--controls-width); /* Fixed width for the sidebar */
-            padding: 20px;
-            border-left: 1px solid #ccc;
-            background-color: #fafafa;
-            overflow-y: auto; /* Allow scrolling if controls exceed height */
-            height: 100vh; /* Make sidebar full height */
-            box-sizing: border-box; /* Include padding in width/height */
-            transition: transform 0.3s ease-in-out; /* Animation for overlay */
-            z-index: 1000; /* Ensure it's above canvas */
-        }
-        #parameterPanel label,
-        #parameterPanel input,
-        #parameterPanel select {
-            display: block;
-            margin-bottom: 10px;
-            width: 100%; /* Make controls fill sidebar width */
-            box-sizing: border-box;
-        }
-         #parameterPanel input[type="range"] {
-             width: calc(100% - 50px); /* Adjust slider width */
-             display: inline-block;
-             vertical-align: middle;
-         }
-         #parameterPanel .value-display {
-             display: inline-block;
-             width: 40px; /* Space for value */
-             text-align: right;
-             vertical-align: middle;
-             margin-left: 5px;
-         }
-        #parameterPanel h3 {
-            margin-top: 0;
-        }
-        #resetButton {
-            margin-top: 20px;
-            padding: 8px 15px;
-        }
-        #behaviorSelector {
-             margin-bottom: 20px;
-        }
-
-        #paramsToggleButton {
-            display: none; /* Hidden by default */
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1001; /* Above controls */
-        }
-
-        /* Styles for smaller screens */
-        @media (max-width: var(--breakpoint-medium)) {
-            #controls {
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100vh;
-                width: var(--controls-width);
-                border-left: none; /* Remove border when overlay */
-                border-right: 1px solid #ccc; /* Add border on the left */
-                transform: translateX(100%); /* Hide off-screen */
-                box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-            }
-            #controls.visible {
-                transform: translateX(0); /* Slide in */
-            }
-            #paramsToggleButton {
-                display: block; /* Show button */
-            }
-            #mainContent {
-                /* Ensure main content doesn't overlap button */
-                padding-bottom: 60px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Main content area holding the canvas and behavior selector -->
     <div id="mainContent">
-        <h1>Pathfinder: Steering Behaviors Demo</h1>
-        <div style="text-align: center; margin-bottom: 15px;">
-            <a href="https://github.com/brayflex/pathfinder" target="_blank">Project GitHub</a> |
-            <a href="pathfinding_demo.html">Pathfinding Demo</a>
-        </div>
-        <select id="behaviorSelector">
-            <option value="Seek">Seek</option>
-            <option value="Flee">Flee</option>
-            <option value="Arrival">Arrival</option>
-            <option value="Wander">Wander</option>
-            <option value="Pursuit">Pursuit</option>
-            <option value="Evade">Evade</option>
-            <option value="Offset Pursuit">Offset Pursuit</option>
-            <option value="Obstacle Avoidance">Obstacle Avoidance</option>
-            <option value="Path Following">Path Following</option>
-            <option value="Wall Following">Wall Following</option>
-            <option value="Containment">Containment</option>
-            <option value="Flow Field Following">Flow Field Following</option>
-            <option value="Unaligned Collision Avoidance">Unaligned Collision Avoidance</option>
-            <option value="Separation">Separation</option>
-            <option value="Cohesion">Cohesion</option>
-            <option value="Alignment">Alignment</option>
-            <option value="Flocking">Flocking</option>
-            <option value="Leader Following">Leader Following</option>
-        </select>
-        <canvas id="steeringCanvas" width="800" height="600"></canvas> <!-- Default size, can be adjusted -->
-    </div> <!-- End mainContent -->
+      <h1>Pathfinder: Steering Behaviors Demo</h1>
+      <div style="text-align: center; margin-bottom: 15px">
+        <a href="https://github.com/brayflex/pathfinder" target="_blank"
+          >Project GitHub</a
+        >
+        |
+        <a href="pathfinding_demo.html">Pathfinding Demo</a>
+      </div>
+      <select id="behaviorSelector">
+        <option value="Seek">Seek</option>
+        <option value="Flee">Flee</option>
+        <option value="Arrival">Arrival</option>
+        <option value="Wander">Wander</option>
+        <option value="Pursuit">Pursuit</option>
+        <option value="Evade">Evade</option>
+        <option value="Offset Pursuit">Offset Pursuit</option>
+        <option value="Obstacle Avoidance">Obstacle Avoidance</option>
+        <option value="Path Following">Path Following</option>
+        <option value="Wall Following">Wall Following</option>
+        <option value="Containment">Containment</option>
+        <option value="Flow Field Following">Flow Field Following</option>
+        <option value="Unaligned Collision Avoidance">
+          Unaligned Collision Avoidance
+        </option>
+        <option value="Separation">Separation</option>
+        <option value="Cohesion">Cohesion</option>
+        <option value="Alignment">Alignment</option>
+        <option value="Flocking">Flocking</option>
+        <option value="Leader Following">Leader Following</option>
+      </select>
+      <canvas id="steeringCanvas" width="800" height="600"></canvas>
+      <!-- Default size, can be adjusted -->
+    </div>
+    <!-- End mainContent -->
 
     <!-- Sidebar for behavior parameters and controls -->
     <div id="controls">
-        <h3>Parameters</h3>
-        <div id="parameterPanel">
-            <!-- Parameter controls will be added dynamically here -->
-        </div>
-        <div id="agentRandomizationControl" style="margin-top: 15px; display: none;"> <!-- Hidden initially -->
-            <label>
-                <input type="checkbox" id="randomizeParamsCheckbox" checked>
-                Randomize Agent Params (-20% to +20%)
-            </label>
-        </div>
-        <button id="resetButton">Reset Settings</button>
-    </div> <!-- End controls -->
+      <h3>Parameters</h3>
+      <div id="parameterPanel">
+        <!-- Parameter controls will be added dynamically here -->
+      </div>
+      <div
+        id="agentRandomizationControl"
+        style="margin-top: 15px; display: none"
+      >
+        <!-- Hidden initially -->
+        <label>
+          <input type="checkbox" id="randomizeParamsCheckbox" checked />
+          Randomize Agent Params (-20% to +20%)
+        </label>
+      </div>
+      <button id="resetButton">Reset Settings</button>
+    </div>
+    <!-- End controls -->
 
     <!-- Button to toggle the parameters sidebar visibility on smaller screens -->
     <button id="paramsToggleButton">Parameters</button>
 
     <script defer src="web/main.dart.js"></script>
-</body>
+  </body>
 </html>
