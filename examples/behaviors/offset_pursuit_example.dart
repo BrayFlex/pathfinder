@@ -145,11 +145,11 @@ void main() {
 
     // Calculate the current world offset for logging
     // Transform leader's local offset to world space
-    Vector2 currentWorldOffsetTarget;
-    final leaderHeading = leader.velocity.normalized();
-    final leaderSide = Vector2(-leaderHeading.y, leaderHeading.x);
-    final worldOffset = (leaderHeading * localOffset.x) + (leaderSide * localOffset.y);
-    currentWorldOffsetTarget = leader.position + worldOffset;
+    // Vector2 currentWorldOffsetTarget;
+    // final leaderHeading = leader.velocity.normalized();
+    // final leaderSide = Vector2(-leaderHeading.y, leaderHeading.x);
+    // final worldOffset = (leaderHeading * localOffset.x) + (leaderSide * localOffset.y);
+    // currentWorldOffsetTarget = leader.position + worldOffset;
     final actualOffset = follower.position - leader.position;
 
 
