@@ -127,7 +127,7 @@ void main() {
     agent.applySteering(steeringForce, deltaTime);
 
     // Get debug info from the behavior
-    final closestPoint = followBehavior.debugLastClosestPoint;
+    // final closestPoint = followBehavior.debugLastClosestPoint;
     final currentSegment = followBehavior.debugCurrentSegmentIndex;
 
     // Print agent state and path following info
