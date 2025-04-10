@@ -64,7 +64,7 @@ void main() {
     late Separation separationBehavior;
     const maxSpeed = 10.0;
     const desiredSeparation = 20.0;
-    const desiredSeparationSq = desiredSeparation * desiredSeparation;
+    // const desiredSeparationSq = desiredSeparation * desiredSeparation;
 
     setUp(() {
       agent = MockSeparationAgent('A',
@@ -176,12 +176,12 @@ void main() {
 
         // Test close neighbor
         grid.add(neighborClose);
-        final steeringClose = separationBehavior.calculateSteering(agent);
+        // final steeringClose = separationBehavior.calculateSteering(agent);
         grid.remove(neighborClose); // Remove for next test
 
         // Test mid neighbor
         grid.add(neighborMid);
-        final steeringMid = separationBehavior.calculateSteering(agent);
+        // final steeringMid = separationBehavior.calculateSteering(agent);
         grid.remove(neighborMid);
 
         // Steering = desired - current. Desired direction is (-1,0) for both.

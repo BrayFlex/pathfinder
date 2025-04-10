@@ -6,7 +6,6 @@ import 'package:pathfinder/src/behaviors/separation.dart';
 import 'package:pathfinder/src/behaviors/cohesion.dart';
 import 'package:pathfinder/src/behaviors/alignment.dart';
 import 'package:pathfinder/src/behaviors/flocking.dart';
-import 'dart:math'; // For PI
 
 // --- Mocks & Helpers ---
 

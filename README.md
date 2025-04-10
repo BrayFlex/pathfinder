@@ -6,14 +6,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <a href='https://ko-fi.com/U7U41CZ5QZ' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
-Pathfinder is a Dart library providing optimized 2D grid-based pathfinding algorithms and a comprehensive suite of autonomous agent steering behaviors. It's designed for use in Dart and Flutter applications, particularly games and simulations.
+> Pathfinder is a Dart library providing optimized 2D grid-based pathfinding algorithms and a comprehensive suite of autonomous agent steering behaviors. It's designed for use in Dart and Flutter applications, particularly games and simulations. 
 
 **Package Focus:**
 
 1.   🚀 **Performance:** Efficient algorithms and data structures (like spatial hashing) for smooth real-time operation.
 2.   🔧 **Customization:** Easily configurable parameters for pathfinding and steering behaviors.
 3.   🧩 **Modularity:** Decoupled components for flexibility and easy integration.
-4.   ✅ **Ease of Adoption:** Clear API and examples to get started quickly.
+4.   ✅ **Ease of Adoption:** Clear API and examples to easily integrate into games or simulations.
 
 ## ✨ Features
 
@@ -49,7 +49,7 @@ Add Pathfinder to your `pubspec.yaml` dependencies:
 
 ```yaml
 dependencies:
-  pathfinder: ^latest # Replace with the desired version
+  pathfinder: ^latest # Replace with the desired pub.dev version
 ```
 
 Then run `flutter pub get` or `dart pub get`.
@@ -62,6 +62,9 @@ Explore interactive demos showcasing various pathfinding algorithms and steering
 - **[Explore Demo Example Code](https://github.com/brayflex/pathfinder/tree/main/docs/web)** 
 
 ## 💡 Usage Examples
+
+- **[All Pathfinding Code Examples](https://github.com/brayflex/pathfinder/tree/main/examples/pathfinding)** 
+- **[All Behavior Code Examples](https://github.com/brayflex/pathfinder/tree/main/examples/behavior)** 
 
 ### Pathfinding Example
 

@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart'; // Added import
 
 import '../grid.dart';
-import '../grid.dart';
 import '../node.dart';
 import '../pathfinder_base.dart';
 import '../heuristics.dart'; // Import needed for base class constructor

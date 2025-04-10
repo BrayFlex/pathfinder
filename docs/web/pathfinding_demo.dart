@@ -24,7 +24,6 @@ import 'package:pathfinder/src/pathfinding/finders/bi_best_first_finder.dart';
 import 'package:pathfinder/src/pathfinding/finders/bi_bfs_finder.dart';
 import 'package:pathfinder/src/pathfinding/finders/bi_dijkstra_finder.dart';
 import 'package:pathfinder/src/pathfinding/heuristics.dart'; // For default heuristic if needed
-import 'package:pathfinder/src/utils/vector_utils.dart'; // For Point
 
 // --- Constants ---
 
@@ -273,7 +272,7 @@ PathResult findPath(ScenarioDefinition scenario, String algorithmName) {
       // Note: Extracting the actual visited node count would require modifications
       // to the core PathFinder package interface. It's currently reported as 0.
 
-  } catch (e, s) {
+  } catch (e) {
       // Path remains empty, indicating failure
   }
 
@@ -284,7 +283,7 @@ PathResult findPath(ScenarioDefinition scenario, String algorithmName) {
   // Add null checks as nodePath can contain nulls
   final pointPath = nodePath
       .where((node) => node != null) // Filter out potential nulls
-      .map((node) => Point(node!.x, node!.y)) // Now safe to use !
+      .map((node) => Point(node!.x, node.y))
       .toList();
 
   return PathResult( // Call the constructor
@@ -403,7 +402,7 @@ void setupScenario(String scenarioId, ScenarioDefinition Function() scenarioFact
   }
 
   // Get context using JS method
-  final ctx = canvas?.getContext('2d') as CanvasRenderingContext2D?; // Add null check for canvas
+  final ctx = canvas.getContext('2d') as CanvasRenderingContext2D?;
   ScenarioDefinition currentScenario = scenarioFactory();
 
   // Store scenario definition globally
@@ -416,14 +415,14 @@ void setupScenario(String scenarioId, ScenarioDefinition Function() scenarioFact
     // Store the previous result before calculating the new one
     final previousResult = previousResults[scenarioId];
 
-    final selectedAlgorithm = algoSelect.value ?? 'AStarFinder';
+    final selectedAlgorithm = algoSelect.value;
     currentResult = findPath(currentScenario, selectedAlgorithm); // Assign to outer scope variable
 
     // Update global previous result storage
     previousResults[scenarioId] = currentResult;
 
     // Update results text
-    resultsDiv.text = '''
+    resultsDiv.textContent = '''
 Algorithm: ${currentResult!.algorithmName}
 Path Found: ${currentResult!.pathFound ? 'Yes' : 'No'}
 Path Length: ${currentResult!.pathFound ? currentResult!.path.length : 'N/A'}
@@ -433,9 +432,9 @@ Time Taken: ${currentResult!.duration.inMicroseconds / 1000} ms
 
     // Update previous algorithm text
     if (previousResult != null) {
-        previousAlgoDiv.text = '(Previous: ${previousResult.algorithmName})';
+        previousAlgoDiv.textContent = '(Previous: ${previousResult.algorithmName})';
     } else {
-        previousAlgoDiv.text = ''; // Clear if no previous run
+        previousAlgoDiv.textContent = ''; // Clear if no previous run
     }
     // Render the grid and path (pass both current and previous)
     if (ctx != null) { // Add null check for ctx
@@ -444,7 +443,7 @@ Time Taken: ${currentResult!.duration.inMicroseconds / 1000} ms
   }
 
   // Event listener for algorithm selection
-  algoSelect?.onChange.listen((Event _) { // Add null check and specify Event type
+  algoSelect.onChange.listen((Event _) { // Add null check and specify Event type
     runAndRender();
   });
 
@@ -453,7 +452,7 @@ Time Taken: ${currentResult!.duration.inMicroseconds / 1000} ms
       currentScenario = scenarioFactory(); // Regenerate scenario
       scenarioDefs[scenarioId] = currentScenario; // Update global reference
       previousResults[scenarioId] = null; // Clear previous result on randomize
-      previousAlgoDiv.text = ''; // Clear previous algo text
+      previousAlgoDiv.textContent = ''; // Clear previous algo text
       runAndRender(); // Run default or selected algorithm on new grid
   }
 

@@ -4,7 +4,6 @@ import 'package:vector_math/vector_math_64.dart';
 import '../agent.dart';
 import '../obstacle.dart'; // Requires RectangleBoundary to be defined here or imported
 import '../steering_behavior.dart';
-import '../utils/vector_utils.dart'; // Although not directly used, good practice
 
 /// {@template containment}
 /// **Containment** steering behavior: keeps an agent within a boundary.

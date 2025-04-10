@@ -1,11 +1,8 @@
-import 'dart:math';
 import 'package:vector_math/vector_math_64.dart';
 
 import '../agent.dart';
-import '../agent.dart';
 import '../obstacle.dart';
 import '../steering_behavior.dart';
-import '../utils/vector_utils.dart'; // Although not directly used, good practice
 
 /// {@template obstacle_avoidance}
 /// **Obstacle Avoidance** steering behavior: steers to avoid static obstacles.
@@ -70,7 +67,6 @@ class ObstacleAvoidance extends SteeringBehavior {
   final Vector2 _heading = Vector2.zero();
   final Vector2 _toObstacle = Vector2.zero();
   final Vector2 _closestPointOnHeading = Vector2.zero();
-  final Vector2 _localIntersectionPoint = Vector2.zero();
   final Vector2 _agentToObstacle = Vector2.zero();
   final Vector2 _lateralProjection = Vector2.zero();
   final Vector2 _avoidanceForce = Vector2.zero();
@@ -125,7 +121,7 @@ class ObstacleAvoidance extends SteeringBehavior {
     // Iterate through obstacles to find the closest potential collision.
     for (final obstacle in obstacles) {
       // --- Basic Collision Check ---
-      // TODO: Extend to support other Obstacle types (e.g., AABB, Polygon)
+      // TODO: Extend to support other Obstacle types (e.g., AABB, Polygon) - I need to port that over from my old game engine.
       if (obstacle is! CircleObstacle) continue;
 
       final obstaclePos = obstacle.position;

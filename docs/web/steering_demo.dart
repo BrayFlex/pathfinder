@@ -17,9 +17,6 @@ import 'package:web/web.dart' as web; // Use prefix 'web' to avoid collisions
 import 'dart:math' as math;
 
 import 'package:pathfinder/pathfinder.dart'; // Main package export
-// Specific imports needed for this demo
-import 'package:pathfinder/src/pathfinding/finders/dijkstra_finder.dart';
-import 'package:pathfinder/src/pathfinding/grid.dart';
 import 'package:pathfinder/src/pathfinding/node.dart' as pf; // Use prefix 'pf'
 import 'package:pathfinder/src/utils/spatial_hash_grid.dart';
 import 'package:vector_math/vector_math_64.dart';
@@ -183,7 +180,6 @@ class CustomContainment extends Containment {
 
   /// Calculates the containment force based on predicted future position.
   /// The force magnitude increases proportionally to the penetration depth.
-  @override
   Vector2 calculateForce(Agent agent, double deltaTime) {
     Vector2 steeringForce = Vector2.zero();
     // Predict future position slightly ahead
@@ -350,7 +346,7 @@ class SteeringDemo {
   /// Sets up event listeners for UI elements (dropdown, buttons, canvas clicks).
   void _setupEventHandlers() {
     behaviorSelector.onChange.listen((web.Event _) { // Use web.Event
-      _selectBehavior(behaviorSelector.value ?? defaultBehavior);
+      _selectBehavior(behaviorSelector.value);
     });
 
     resetButton.onClick.listen((web.MouseEvent _) { // Use web.MouseEvent
@@ -696,7 +692,7 @@ void _selectBehavior(String behaviorName) {
         for (int r = 0; r < fieldRows; r++) {
           for (int c = 0; c < fieldColumns; c++) {
             final currentNode = grid.getNodeAt(c, r); // Returns pf.Node?
-            if (currentNode == null || !currentNode.isWalkable) { // Add null check
+            if (!currentNode.isWalkable) { // Add null check
               flowField!.setFlow(c, r, Vector2.zero()); // No flow in obstacles
               continue;
             }
@@ -707,10 +703,10 @@ void _selectBehavior(String behaviorName) {
 
             // Check neighbors (including diagonal) in the pathfinding grid.
             // Ensure type argument is correct for the list
-            final neighbors = currentNode == null ? <pf.Node?>[] : grid.getNeighbors(currentNode, allowDiagonal: true, dontCrossCorners: true);
+            final neighbors = grid.getNeighbors(currentNode, allowDiagonal: true, dontCrossCorners: true);
             for (final neighbor in neighbors) {
               // Find the neighbor with the lowest 'g' cost (closest to the target).
-              if (neighbor != null && neighbor.isWalkable && neighbor.g >= 0 && neighbor.g < minCost) { // Add null check
+              if (neighbor.isWalkable && neighbor.g >= 0 && neighbor.g < minCost) { // Add null check
                 minCost = neighbor.g;
                 bestNeighbor = neighbor; // Already pf.Node?
               }
@@ -938,23 +934,23 @@ void _selectBehavior(String behaviorName) {
     if (info != null) {
         parameterPanel.append(web.HTMLParagraphElement() // Use web element
             ..style.fontWeight = 'bold'
-            ..text = 'Description:');
+            ..textContent = 'Description:');
         parameterPanel.append(web.HTMLParagraphElement() // Use web element
             ..style.fontSize = '0.9em'
             ..style.marginTop = '2px'
             ..style.marginBottom = '10px'
-            ..text = info.description);
+            ..textContent = info.description);
 
         parameterPanel.append(web.HTMLParagraphElement() // Use web element
             ..style.fontWeight = 'bold'
-            ..text = 'Interaction:');
+            ..textContent = 'Interaction:');
         parameterPanel.append(web.HTMLParagraphElement() // Use web element
             ..style.fontSize = '0.9em'
             ..style.marginTop = '2px'
             ..style.marginBottom = '15px' // More space before params
-            ..text = info.interaction);
+            ..textContent = info.interaction);
     } else {
-        parameterPanel.append(web.HTMLParagraphElement()..text = 'Info not available for this behavior.'); // Use web element
+        parameterPanel.append(web.HTMLParagraphElement()..textContent = 'Info not available for this behavior.'); // Use web element
     }
     parameterPanel.append(web.HTMLHRElement()); // Use web element
 
@@ -966,7 +962,7 @@ void _selectBehavior(String behaviorName) {
       // If no agents, but we have info, still show the info panel.
       // If no agents AND no info, show the original message.
       if (info == null) {
-          parameterPanel.append(web.HTMLParagraphElement()..text = 'No agent selected or scenario not fully implemented.'); // Use web element
+          parameterPanel.append(web.HTMLParagraphElement()..textContent = 'No agent selected or scenario not fully implemented.'); // Use web element
       }
       // Hide randomization control if no agents
       agentRandomizationControl.style.display = 'none';
@@ -979,7 +975,7 @@ void _selectBehavior(String behaviorName) {
     final controlAgent = agents.isNotEmpty ? agents.first : targetAgent;
     if (controlAgent == null) return;
 
-    parameterPanel.append(web.HTMLHeadingElement.h4()..text = 'Agent Settings'); // Use web element
+    parameterPanel.append(web.HTMLHeadingElement.h4()..textContent = 'Agent Settings'); // Use web element
     _addSliderControl(parameterPanel, 'Max Speed', controlAgent.maxSpeed, 10, 500, 1, (value) {
       for (final agent in agents) { agent.maxSpeed = value; }
        if (targetAgent != null && !agents.contains(targetAgent)) targetAgent!.maxSpeed = value;
@@ -999,7 +995,7 @@ void _selectBehavior(String behaviorName) {
 
 
     // --- Behavior-Specific Parameters ---
-     parameterPanel.append(web.HTMLHeadingElement.h4()..text = 'Behavior: $currentBehavior'); // Use web element
+     parameterPanel.append(web.HTMLHeadingElement.h4()..textContent = 'Behavior: $currentBehavior'); // Use web element
      bool behaviorParamsAdded = false;
 
      // Use the agent's getBehavior method now
@@ -1070,7 +1066,7 @@ void _selectBehavior(String behaviorName) {
        case 'Pursuit':
        case 'Evade':
          // No direct parameters exposed for basic Pursuit/Evade in this library version
-         parameterPanel.append(web.HTMLParagraphElement()..text = 'No specific parameters.'); // Use web element
+         parameterPanel.append(web.HTMLParagraphElement()..textContent = 'No specific parameters.'); // Use web element
          behaviorParamsAdded = true; // Mark as handled
          break;
        case 'Offset Pursuit':
@@ -1110,7 +1106,7 @@ void _selectBehavior(String behaviorName) {
            });
            behaviorParamsAdded = true;
          } else if (currentPath == null) {
-             parameterPanel.append(web.HTMLParagraphElement()..text = 'Path not defined for this scenario.'); // Use web element
+             parameterPanel.append(web.HTMLParagraphElement()..textContent = 'Path not defined for this scenario.'); // Use web element
              behaviorParamsAdded = true; // Mark as handled
          }
          break;
@@ -1272,7 +1268,7 @@ void _selectBehavior(String behaviorName) {
                     behaviorParamsAdded = true;
                 }
             } else {
-                 parameterPanel.append(web.HTMLParagraphElement()..text = 'Requires at least one follower.'); // Use web element
+                 parameterPanel.append(web.HTMLParagraphElement()..textContent = 'Requires at least one follower.'); // Use web element
                  behaviorParamsAdded = true; // Mark as handled
             }
             break;
@@ -1308,7 +1304,7 @@ void _selectBehavior(String behaviorName) {
 
 
     if (!behaviorParamsAdded) {
-      parameterPanel.append(web.HTMLParagraphElement()..text = 'No specific parameters for this behavior yet.'); // Use web element
+      parameterPanel.append(web.HTMLParagraphElement()..textContent = 'No specific parameters for this behavior yet.'); // Use web element
     }
 
     // TODO: Add controls for behavior weights. This would require iterating through
@@ -1322,9 +1318,9 @@ void _selectBehavior(String behaviorName) {
     if (id != null) {
         container.id = id; // Assign ID to container if provided
     }
-    final labelElement = web.HTMLLabelElement()..text = '$label: '; // Use web element
+    final labelElement = web.HTMLLabelElement()..textContent = '$label: '; // Use web element
     final valueDisplay = web.HTMLSpanElement() // Use web element
-        ..text = initialValue.toStringAsFixed(step >= 1 ? 0 : 1) // Show decimal if step is fractional
+        ..textContent = initialValue.toStringAsFixed(step >= 1 ? 0 : 1) // Show decimal if step is fractional
         ..classList.add('value-display'); // Use classList
 
     // Create element first, then set properties
@@ -1336,11 +1332,11 @@ void _selectBehavior(String behaviorName) {
       ..value = initialValue.toString();
 
     slider.onInput.listen((_) {
-      final value = double.parse(slider.value ?? '0');
-      valueDisplay.text = value.toStringAsFixed(step >= 1 ? 0 : 1);
+      final value = double.parse(slider.value);
+      valueDisplay.textContent = value.toStringAsFixed(step >= 1 ? 0 : 1);
       try {
         onChange(value);
-      } catch (e, s) {
+      } catch (e) {
           // print("Error applying slider change for $label: $e"); // Keep commented out unless debugging
           // print(s);
           // Optionally disable slider or show error?
@@ -1358,9 +1354,9 @@ void _selectBehavior(String behaviorName) {
       // Find the container div first, then the input inside it
       final container = web.document.querySelector('#followerSeparationSlider'); // Use web.document
       if (container == null) return null;
-      final slider = container?.querySelector('input[type="range"]') as web.HTMLInputElement?; // Add null check for container
+      final slider = container.querySelector('input[type="range"]') as web.HTMLInputElement?; // Add null check for container
       if (slider != null) {
-          return double.tryParse(slider.value ?? '');
+          return double.tryParse(slider.value);
       }
       return null; // Return null if slider doesn't exist
   }
@@ -1389,7 +1385,7 @@ void _selectBehavior(String behaviorName) {
       }
 
       // Apply initial randomization if checkbox is checked
-      if (randomizeParamsCheckbox.checked ?? false) {
+      if (randomizeParamsCheckbox.checked) {
           _applyAgentParameterRandomization();
       }
   }
@@ -1397,7 +1393,7 @@ void _selectBehavior(String behaviorName) {
   /// Applies or removes randomization (+/- 20%) to agent parameters based on the checkbox state.
   void _applyAgentParameterRandomization() {
       final random = math.Random();
-      final bool shouldRandomize = randomizeParamsCheckbox.checked ?? false;
+      final bool shouldRandomize = randomizeParamsCheckbox.checked;
 
       for (final agent in agents) {
           final originalParams = _originalAgentParams[agent];
@@ -1530,7 +1526,7 @@ void _selectBehavior(String behaviorName) {
           for (int i = 1; i < currentPath!.points.length; i++) {
               ctx.lineTo(currentPath!.points[i].x, currentPath!.points[i].y);
           }
-          // TODO: Optionally draw path radius guides (circles/lines along the path).
+          // TODO: Optionally we could draw path radius guides (circles/lines along the path).
           ctx.stroke();
       }
     }
@@ -1581,10 +1577,7 @@ void setupSteeringDemo() {
       try {
           // print("Setting up Steering Demo"); // Keep commented out
           SteeringDemo(); // Initialize the demo class
-      } catch (e, stacktrace) {
-          // print("Error setting up Steering Demo: $e"); // Keep commented out
-          // print(stacktrace);
-          // Provide feedback to the user in case of failure
+      } catch (e) {
           web.window.alert("Failed to initialize Steering Demo. Check console for errors."); // alert takes a String
       }
   }.toJS);

@@ -2,7 +2,6 @@ import 'package:vector_math/vector_math_64.dart';
 
 import '../agent.dart';
 import '../steering_behavior.dart';
-import '../utils/vector_utils.dart'; // Although not directly used, good practice
 import 'seek.dart'; // For doc links
 
 /// {@template flee}

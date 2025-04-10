@@ -1,8 +1,6 @@
 import 'package:test/test.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'dart:math'; // For max()
-import 'package:test/test.dart';
-import 'package:vector_math/vector_math_64.dart';
 import 'package:pathfinder/src/agent.dart';
 import 'package:pathfinder/src/obstacle.dart'; // Needs RectangleBoundary
 import 'package:pathfinder/src/behaviors/containment.dart';

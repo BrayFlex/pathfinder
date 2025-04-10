@@ -2,7 +2,6 @@ import 'package:test/test.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'package:pathfinder/src/agent.dart';
 import 'package:pathfinder/src/behaviors/offset_pursuit.dart';
-import 'dart:math'; // For sqrt
 
 // --- Mocks & Helpers ---
 
@@ -81,7 +80,6 @@ void main() {
     const leaderSpeed = 5.0;
     const defaultSlowingRadius = 15.0;
     const defaultArrivalTolerance = 1.0;
-    const defaultMaxPrediction = 1.0; // Default max prediction time
 
     // Common offsets to test
     final offsetBehind = Vector2(-10.0, 0.0); // 10 units behind leader
@@ -140,9 +138,9 @@ void main() {
       // Leader at (100,0), Vel (5,0) -> Forward (1,0), Side (0,1)
       // Offset (-10, 0) -> WorldOffset = Fwd*(-10) + Side*0 = (-10, 0)
       // Prediction T = dist/speed = 100 / 10 = 10 (clamped by default maxPredictionTime=1.0)
-      final predictionTime = defaultMaxPrediction;
+      // final predictionTime = defaultMaxPrediction;
       // FuturePos = (100,0) + (5,0)*1 = (105, 0)
-      final futurePosition = leader.position + leader.velocity * predictionTime;
+      // final futurePosition = leader.position + leader.velocity * predictionTime;
       // WorldOffsetPoint = FuturePos + WorldOffset = (105, 0) + (-10, 0) = (95, 0)
       final expectedTargetPoint = Vector2(95.0, 0.0);
 
@@ -157,9 +155,9 @@ void main() {
        // Leader at (100,0), Vel (5,0) -> Forward (1,0), Side (0,1)
        // Offset (0, 10) -> WorldOffset = Fwd*0 + Side*10 = (0, 10)
        // Prediction T = 1.0 (default clamp)
-       final predictionTime = defaultMaxPrediction;
+      //  final predictionTime = defaultMaxPrediction;
        // FuturePos = (105, 0)
-       final futurePosition = leader.position + leader.velocity * predictionTime;
+      //  final futurePosition = leader.position + leader.velocity * predictionTime;
        // WorldOffsetPoint = FuturePos + WorldOffset = (105, 0) + (0, 10) = (105, 10)
        final expectedTargetPoint = Vector2(105.0, 10.0);
 
@@ -176,9 +174,9 @@ void main() {
        offsetPursuit = OffsetPursuit(targetAgent: leader, offset: offsetDiag); // Offset (-5, 5)
 
        // Prediction T = 100 / 10 = 10 (clamped to 1.0)
-       final predictionTime = defaultMaxPrediction;
+      //  final predictionTime = defaultMaxPrediction;
        // FuturePos = (0, 100) + (0, 5)*1 = (0, 105)
-       final futurePosition = leader.position + leader.velocity * predictionTime;
+      //  final futurePosition = leader.position + leader.velocity * predictionTime;
        // WorldOffset = Fwd*(-5) + Side*5 = (0,-5) + (-5,0) = (-5, -5)
        // WorldOffsetPoint = FuturePos + WorldOffset = (0, 105) + (-5, -5) = (-5, 100)
        final expectedTargetPoint = Vector2(-5.0, 100.0);
@@ -247,7 +245,7 @@ void main() {
         offsetPursuit = OffsetPursuit(targetAgent: leader, offset: offsetBehind, maxPredictionTime: maxPrediction);
 
         // FuturePos = (100,0) + (5,0)*5 = (125, 0)
-        final futurePosition = leader.position + leader.velocity * maxPrediction;
+        // final futurePosition = leader.position + leader.velocity * maxPrediction;
         // WorldOffset = (-10, 0)
         // WorldOffsetPoint = (125, 0) + (-10, 0) = (115, 0)
         final expectedTargetPoint = Vector2(115.0, 0.0);

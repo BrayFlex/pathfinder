@@ -1,5 +1,5 @@
 name: pathfinder
-description: A Dart package for optimized autonomous agent steering behaviors on 2d grid planes. Designed for performance, customization, modularity and ease of adoption (in that order).
+description: A Dart package for optimized pathfinding & autonomous agent steering behaviors on 2d grids. Designed for performance, customization, modularity, games and ease of adoption.
 version: 0.0.1
 repository: https://github.com/BrayFlex/pathfinder
 homepage: https://pub.dev/packages/pathfinder
@@ -13,5 +13,5 @@ dependencies:
 
 dev_dependencies:
   coverage: ^1.11.1
-  lints: ^3.0.0
+  lints: ^5.1.1
   test: ^1.24.0

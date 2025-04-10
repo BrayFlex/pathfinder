@@ -180,9 +180,10 @@ class FlowField {
 
   // Helper to get flow vector, clamping indices to grid bounds.
   // This was implicitly handled by the clamping logic before, but let's keep it explicit.
-  Vector2 _getFlowClamped(int col, int row) {
-    final c = col.clamp(0, columns - 1);
-    final r = row.clamp(0, rows - 1);
-    return _field[r * columns + c];
-  }
+  // This is not used in the current implementation but could be useful for test cases.
+  // Vector2 _getFlowClamped(int col, int row) {
+  //   final c = col.clamp(0, columns - 1);
+  //   final r = row.clamp(0, rows - 1);
+  //   return _field[r * columns + c];
+  // }
 }

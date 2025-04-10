@@ -4,7 +4,6 @@ import 'package:vector_math/vector_math_64.dart';
 import '../agent.dart';
 import '../steering_behavior.dart';
 import '../utils/spatial_hash_grid.dart'; // Requires SpatialHashGrid for neighbor queries
-import '../utils/vector_utils.dart'; // Although not directly used, good practice
 import 'alignment.dart'; // For doc links
 import 'cohesion.dart'; // For doc links
 import 'flocking.dart'; // For doc links

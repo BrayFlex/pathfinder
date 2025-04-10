@@ -65,7 +65,7 @@ void main() {
     const agentRadius = 5.0;
     const otherRadius = 5.0;
     const combinedRadius = agentRadius + otherRadius; // 10.0
-    const combinedRadiusSq = combinedRadius * combinedRadius; // 100.0
+    // const combinedRadiusSq = combinedRadius * combinedRadius; // 100.0
     const maxSpeed = 10.0;
     const maxPredictionTime = 2.0;
     const avoidanceForceMultiplier = 100.0;

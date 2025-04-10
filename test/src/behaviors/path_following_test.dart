@@ -95,7 +95,7 @@ void main() {
       agent.velocity = Vector2(maxSpeed, 0); // Moving right
 
       // Predict future position: (50, 10) + (1, 0)*20 = (70, 10)
-      final futurePosition = agent.position + agent.velocity.normalized() * predictionDistance;
+      // final futurePosition = agent.position + agent.velocity.normalized() * predictionDistance;
       // Closest point on path segment (0,0)->(100,0) to (70,10) is (70,0)
       final closestPoint = Vector2(70.0, 0.0);
       // Distance to path = 10, which is > pathRadius (5) -> off-path
@@ -113,7 +113,7 @@ void main() {
        agent.velocity = Vector2(maxSpeed, 0); // Moving right along the path
 
        // Predict future position: (50, 0) + (1, 0)*20 = (70, 0)
-       final futurePosition = agent.position + agent.velocity.normalized() * predictionDistance;
+      //  final futurePosition = agent.position + agent.velocity.normalized() * predictionDistance;
        // Closest point on path segment (0,0)->(100,0) to (70,0) is (70,0)
        final closestPoint = Vector2(70.0, 0.0);
        // Distance to path = 0, which is <= pathRadius (5) -> on-path
@@ -251,10 +251,10 @@ void main() {
          // Closest point on segment 1 ((100,0) to (100,100)) is (100, 5).
          // Projection onto segment 1 is negative.
          // The code should clamp the closest point to the start of segment 1, which is (100,0).
-         final closestPoint = Vector2(100.0, 0.0);
+        //  final closestPoint = Vector2(100.0, 0.0);
          // Target should be projected along segment 1 from the clamped closest point.
          // Segment 1 direction = (0, 1)
-         final targetPoint = closestPoint + Vector2(0,1) * predictionDistance; // (100, 20)
+        //  final targetPoint = closestPoint + Vector2(0,1) * predictionDistance; // (100, 20)
 
          final steering = pathFollowing.calculateSteering(agent);
          // Recalculate expected seek force based on agent pos (100, 5) and target (100, 20)

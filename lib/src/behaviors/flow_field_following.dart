@@ -3,7 +3,6 @@ import 'package:vector_math/vector_math_64.dart';
 import '../agent.dart';
 import '../flow_field.dart'; // Requires FlowField to be defined here or imported
 import '../steering_behavior.dart';
-import '../utils/vector_utils.dart'; // Although not directly used, good practice
 
 /// {@template flow_field_following}
 /// **Flow Field Following** steering behavior: aligns agent movement with a flow field.
@@ -53,7 +52,7 @@ class FlowFieldFollowing extends SteeringBehavior {
   FlowFieldFollowing({
     required this.flowField,
     this.predictionDistance,
-  }) : assert(predictionDistance == null || predictionDistance! >= 0,
+  }) : assert(predictionDistance == null || predictionDistance >= 0,
                'predictionDistance cannot be negative.');
 
 

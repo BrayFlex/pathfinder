@@ -2,42 +2,50 @@
    General Styles - Applied across all demo pages
    ========================================================================== */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    line-height: 1.6;
-    margin: 0;
-    padding: 20px;
-    background-color: #f8f9fa;
-    color: #343a40;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  color: #343a40;
 }
 
-h1, h2, h3 {
-    color: #0056b3; /* A slightly darker blue for headings */
-    margin-bottom: 0.5em;
+h1,
+h2,
+h3 {
+  color: #0865c9; /* A slightly darker blue for headings */
+  margin-bottom: 0.5em;
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 1em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+h4 {
+  text-align: center;
+  margin-bottom: 1em;
 }
 
 p {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 a {
-    color: #007bff;
-    text-decoration: none;
+  color: #007bff;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 canvas {
-    border: 1px solid #ced4da;
-    background-color: #ffffff;
-    display: block; /* Prevent extra space below */
-    margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  background-color: #ffffff;
+  display: block; /* Prevent extra space below */
+  margin-bottom: 10px;
 }
 
 /* ==========================================================================
@@ -47,198 +55,223 @@ button,
 select,
 input[type="number"],
 input[type="range"] {
-    padding: 8px 12px;
-    margin: 5px 0;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 1rem;
-    background-color: #ffffff;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #ffffff;
 }
 
 button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 label {
-    display: block;
-    margin-bottom: 3px;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 3px;
+  font-weight: bold;
 }
 
 /* ==========================================================================
    Index Page Specific Styles (index.html)
    ========================================================================== */
-.demo-links {
-    text-align: center;
-    margin-top: 2em;
+.button-row,
+.link-row {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
-.demo-links a {
-    display: inline-block;
-    background-color: #28a745;
-    color: white;
-    padding: 12px 25px;
-    margin: 0 10px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: background-color 0.2s ease-in-out;
+.demo-button {
+  display: inline-block;
+  background-color: #007bff; /* Use primary button color */
+  color: white;
+  padding: 15px 20px;
+  margin: 5px 10px; /* Add vertical margin for wrapping */
+  border-radius: 24px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+  border: none; /* Remove border if inheriting from general 'a' */
+  cursor: pointer;
+  line-height: 1.2; /* Adjust line height for emoji alignment */
+  flex: 1;
+  max-width: 300px;
 }
 
-.demo-links a:hover {
-    background-color: #218838;
-    text-decoration: none;
+.demo-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  text-decoration: none;
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.link-row a {
+  margin: 0 15px; /* Space out the text links */
+  font-size: 1rem;
+  color: #0056b3;
 }
 
 /* ==========================================================================
    Pathfinding Demo Specific Styles (pathfinding_demo.html)
    ========================================================================== */
 .pathfinding-scenarios {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: 20px; /* Space between scenarios */
-    justify-content: space-around; /* Distribute space */
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 20px; /* Space between scenarios */
+  justify-content: space-around; /* Distribute space */
 }
 
 .scenario {
-    flex: 1; /* Allow scenarios to grow */
-    min-width: 300px; /* Minimum width before wrapping */
-    border: 1px solid #dee2e6;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
+  flex: 1; /* Allow scenarios to grow */
+  min-width: 300px; /* Minimum width before wrapping */
+  border: 1px solid #dee2e6;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
 }
 
 .scenario h3 {
-    text-align: center;
-    margin-top: 0;
+  text-align: center;
+  margin-top: 0;
 }
 
 .scenario-controls {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column; /* Stack controls */
-    gap: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column; /* Stack controls */
+  gap: 5px;
 }
 
 .scenario-results {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    background-color: #e9ecef;
-    padding: 10px;
-    border-radius: 4px;
-    min-height: 50px; /* Ensure space for results */
-    overflow-wrap: break-word; /* Prevent long text overflow */
+  margin-top: 10px;
+  font-size: 0.9rem;
+  background-color: #e9ecef;
+  padding: 10px;
+  border-radius: 4px;
+  min-height: 50px; /* Ensure space for results */
+  overflow-wrap: break-word; /* Prevent long text overflow */
 }
 
 /* ==========================================================================
    Steering Demo Specific Styles (steering_demo.html)
    ========================================================================== */
 .steering-container {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping */
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping */
+  gap: 20px;
 }
 
 .steering-main {
-    flex: 3; /* Main area takes more space */
-    min-width: 400px;
+  flex: 3; /* Main area takes more space */
+  min-width: 400px;
 }
 
 .steering-controls {
-    flex: 1; /* Sidebar takes less space */
-    min-width: 250px;
-    border: 1px solid #dee2e6;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex: 1; /* Sidebar takes less space */
+  min-width: 250px;
+  border: 1px solid #dee2e6;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .steering-controls h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    text-align: center;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .control-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .control-group label {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .control-group input[type="range"] {
-    width: calc(100% - 50px); /* Adjust width to fit value display */
-    vertical-align: middle;
+  width: calc(100% - 50px); /* Adjust width to fit value display */
+  vertical-align: middle;
 }
 
 .control-group .value-display {
-    display: inline-block;
-    width: 40px; /* Space for the value */
-    text-align: right;
-    font-family: monospace;
-    margin-left: 5px;
-    vertical-align: middle;
+  display: inline-block;
+  width: 40px; /* Space for the value */
+  text-align: right;
+  font-family: monospace;
+  margin-left: 5px;
+  vertical-align: middle;
 }
 
 .steering-controls button {
-    width: 100%; /* Make button full width */
-    margin-top: 10px;
+  width: 100%; /* Make button full width */
+  margin-top: 10px;
 }
 
 /* ==========================================================================
    Basic Responsiveness - Adjustments for smaller screens
    ========================================================================== */
 @media (max-width: 768px) {
-    .pathfinding-scenarios,
-    .steering-container {
-        flex-direction: column; /* Stack elements vertically on smaller screens */
-    }
+  .pathfinding-scenarios,
+  .steering-container {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+  }
 
-    .scenario,
-    .steering-main,
-    .steering-controls {
-        min-width: 100%; /* Take full width when stacked */
-        flex-basis: auto; /* Reset flex basis */
-    }
+  .scenario,
+  .steering-main,
+  .steering-controls {
+    min-width: 100%; /* Take full width when stacked */
+    flex-basis: auto; /* Reset flex basis */
+  }
 
-    h1 {
-        font-size: 1.8rem;
-    }
+  h1 {
+    font-size: 1.8rem;
+  }
 
-    .demo-links a {
-        padding: 10px 20px;
-        font-size: 1rem;
-    }
+  .demo-links a {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
+  body {
+    padding: 10px;
+  }
 
-    h1 {
-        font-size: 1.5rem;
-    }
+  h1 {
+    font-size: 1.5rem;
+  }
 
-    button, select, input {
-        font-size: 0.9rem;
-    }
+  button,
+  select,
+  input {
+    font-size: 0.9rem;
+  }
 
-    .demo-links a {
-        display: block; /* Stack demo links */
-        margin: 10px 0;
-    }
+  .demo-button {
+    /* Ensure buttons take reasonable width but allow stacking */
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin: 8px 5px;
+  }
+  .link-row a {
+    margin: 0 10px; /* Reduce margin slightly */
+  }
 }
